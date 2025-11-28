@@ -1,7 +1,50 @@
-import React from 'react';
-import { ArrowRight, DownloadCloud, Zap, ShieldCheck } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, DownloadCloud, Zap, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react';
+
+// Placeholder images representing the tool screenshots. 
+// In a real deployment, replace these URLs with your actual image paths.
+const screenshots = [
+  {
+    url: "https://placehold.co/1200x675/161b22/00ff88?text=MEGA+DOWNLOADER+v10.5+Interface",
+    alt: "Main Interface - Dark Mode"
+  },
+  {
+    url: "https://placehold.co/1200x675/161b22/ffa500?text=Fast+Downloading+Progress...",
+    alt: "High Speed Downloading"
+  },
+  {
+    url: "https://placehold.co/1200x675/161b22/ff4444?text=Secure+Login+%26+Key+System",
+    alt: "Security Key System"
+  }
+];
 
 export const Hero = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+
+  // Auto-advance slides
+  useEffect(() => {
+    if (isHovering) return; // Pause on hover
+
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % screenshots.length);
+    }, 4000); // Change every 4 seconds
+
+    return () => clearInterval(timer);
+  }, [isHovering]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % screenshots.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + screenshots.length) % screenshots.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
   return (
     <section className="relative pt-32 pb-20 overflow-hidden">
       {/* Background Glow */}
@@ -16,19 +59,19 @@ export const Hero = () => {
           Update ថ្មីបំផុតសម្រាប់ឆ្នាំ 2025
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight animate-fade-in-up [animation-delay:200ms]">
           <span className="block text-white">MEGA DOWNLOADER</span>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#4affb0] to-primaryDark">
             v10.5
           </span>
         </h1>
 
-        <p className="text-xl text-secondary max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-xl text-secondary max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up [animation-delay:400ms]">
           Tools ទាញយកវីដេអូលឿនបំផុតនៅកម្ពុជា។ គាំទ្រ <span className="text-white font-semibold">YouTube, TikTok, Facebook, Instagram</span> និងគ្រប់ Link!
           ទាញយកកម្រិត 4K ច្បាស់ឥតខ្ចោះ។
         </p>
 
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16 animate-fade-in-up [animation-delay:600ms]">
           <a 
             href="https://t.me/kun_amra" 
             target="_blank" 
@@ -47,7 +90,7 @@ export const Hero = () => {
         </div>
 
         {/* Stats / Mini Features */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-20 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-20 text-left animate-fade-in-up [animation-delay:800ms]">
           <div className="bg-[#161b22]/80 backdrop-blur border border-gray-800 p-4 rounded-lg flex items-center gap-4">
             <div className="p-3 bg-blue-500/20 text-blue-400 rounded-lg">
               <DownloadCloud size={24} />
@@ -77,20 +120,69 @@ export const Hero = () => {
           </div>
         </div>
 
-        {/* Placeholder for Screenshots - Using styled divs to simulate UI */}
-        <div className="relative max-w-5xl mx-auto">
+        {/* Image Slider */}
+        <div className="relative max-w-5xl mx-auto animate-fade-in-up [animation-delay:1000ms]">
           <div className="absolute -inset-1 bg-gradient-to-r from-primary to-blue-600 rounded-2xl blur opacity-30"></div>
-          <div className="relative bg-[#0d1117] rounded-xl border border-gray-800 shadow-2xl overflow-hidden aspect-video flex items-center justify-center">
-             <div className="text-center p-8">
-                <img 
-                    src="https://picsum.photos/1200/675?grayscale" 
-                    alt="App Screenshot" 
-                    className="opacity-50 hover:opacity-100 transition-opacity duration-500 object-cover w-full h-full absolute inset-0"
-                />
-                <div className="relative z-10 bg-black/70 p-6 rounded-xl backdrop-blur-sm border border-gray-700">
-                    <p className="text-primary font-bold text-xl mb-2">MEGA DOWNLOADER UI</p>
-                    <p className="text-gray-300">រូបភាពកម្មវិធីបង្ហាញនៅទីនេះ</p>
-                </div>
+          
+          <div 
+            className="relative bg-[#0d1117] rounded-xl border border-gray-800 shadow-2xl overflow-hidden aspect-video group"
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+          >
+             {/* Slider Images */}
+             {screenshots.map((slide, index) => (
+               <div 
+                 key={index}
+                 className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                   index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                 }`}
+               >
+                 <img 
+                    src={slide.url} 
+                    alt={slide.alt} 
+                    className="w-full h-full object-cover"
+                 />
+                 {/* Optional Overlay Gradient for better integration */}
+                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117]/80 via-transparent to-transparent opacity-50"></div>
+               </div>
+             ))}
+
+             {/* Slider Controls */}
+             <button 
+               onClick={(e) => { e.preventDefault(); prevSlide(); }}
+               className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-primary hover:text-black text-white p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 transform -translate-x-4 group-hover:translate-x-0"
+               aria-label="Previous Slide"
+             >
+               <ChevronLeft size={24} />
+             </button>
+             
+             <button 
+               onClick={(e) => { e.preventDefault(); nextSlide(); }}
+               className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-primary hover:text-black text-white p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0"
+               aria-label="Next Slide"
+             >
+               <ChevronRight size={24} />
+             </button>
+
+             {/* Caption */}
+             <div className="absolute bottom-0 left-0 right-0 z-20 p-6 bg-gradient-to-t from-black/90 to-transparent">
+                <p className="text-white font-bold text-lg md:text-xl transform transition-all duration-500 translate-y-0">
+                  {screenshots[currentSlide].alt}
+                </p>
+             </div>
+
+             {/* Dots Indicators */}
+             <div className="absolute bottom-6 right-6 z-20 flex gap-2">
+               {screenshots.map((_, index) => (
+                 <button
+                   key={index}
+                   onClick={() => goToSlide(index)}
+                   className={`h-2 rounded-full transition-all duration-300 ${
+                     index === currentSlide ? 'w-8 bg-primary' : 'w-2 bg-gray-500 hover:bg-gray-400'
+                   }`}
+                   aria-label={`Go to slide ${index + 1}`}
+                 />
+               ))}
              </div>
           </div>
         </div>
