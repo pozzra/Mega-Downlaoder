@@ -2,41 +2,6 @@ import React from 'react';
 import { Send, Download } from 'lucide-react';
 
 export const Footer = () => {
-  const handleDownload = (e: React.MouseEvent) => {
-    e.preventDefault();
-    // Simulate downloading a README file since we don't have the .exe host
-    const content = `
-MEGA DOWNLOADER v10.5 - TRIAL VERSION INFO
-==========================================
-
-Thank you for downloading the MEGA DOWNLOADER v10.5 demo!
-
-To get the full functional software (.exe) and your activation key:
-1. Join our Telegram Channel: https://t.me/kun_amra
-2. Contact Admin @kun_amra to purchase a Lifetime Key (9.99$).
-3. You will receive the software link and a unique License Key immediately.
-
-Features included in Full Version:
-- Unlimited Downloads (YouTube, TikTok, FB, IG)
-- 4K Video Quality
-- High Speed (aria2c)
-- Auto Updates
-- Lifetime Support
-
-Contact: @kun_amra
-    `;
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = "READ_ME_TRIAL.txt";
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(a);
-    alert("ការទាញយក Demo ចាប់ផ្ដើម! សូមអាន file ដែលបានទាញយក។");
-  };
-
   return (
     <footer className="bg-[#0d1117] border-t border-gray-800 pt-16 pb-8">
       <div className="container mx-auto px-4">
@@ -47,13 +12,15 @@ Contact: @kun_amra
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4">
-             <button 
-              onClick={handleDownload}
+             <a 
+              href="https://mega.nz/file/2lZU3KIR#JBlwheeb7G_BYsI5KOKUNrzWhU458RkTxJgbwcw9QAk"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors flex items-center justify-center gap-2 border border-gray-700 cursor-pointer"
             >
               <Download size={18} />
               ទាញយក Demo (Free 3 ថ្ងៃ)
-            </button>
+            </a>
             <a 
               href="https://t.me/kun_amra" 
               target="_blank" 

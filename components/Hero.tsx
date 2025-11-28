@@ -82,10 +82,13 @@ export const Hero = () => {
             <ArrowRight size={20} />
           </a>
           <a 
-            href="#pricing"
+            href="https://mega.nz/file/2lZU3KIR#JBlwheeb7G_BYsI5KOKUNrzWhU458RkTxJgbwcw9QAk"
+            target="_blank"
+            rel="noopener noreferrer"
             className="w-full sm:w-auto px-8 py-4 bg-[#161b22] border border-gray-700 hover:border-primary text-secondary hover:text-primary font-bold text-lg rounded-xl transition-all duration-300 flex items-center justify-center gap-2"
           >
-            មើលតម្លៃ
+            <DownloadCloud size={20} />
+            ទាញយក (Free)
           </a>
         </div>
 

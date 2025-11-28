@@ -14,6 +14,7 @@ export const Navbar = () => {
   }, []);
 
   const navLinks = [
+    { name: 'ទាញយក', href: 'https://mega.nz/file/2lZU3KIR#JBlwheeb7G_BYsI5KOKUNrzWhU458RkTxJgbwcw9QAk', external: true },
     { name: 'លក្ខណៈពិសេស', href: '#features' },
     { name: 'តម្លៃ', href: '#pricing' },
     { name: 'បញ្ជាក់', href: '#testimonials' },
@@ -40,6 +41,8 @@ export const Navbar = () => {
             <a 
               key={link.name} 
               href={link.href}
+              target={link.external ? "_blank" : "_self"}
+              rel={link.external ? "noopener noreferrer" : ""}
               className="text-secondary hover:text-primary transition-colors font-medium text-sm lg:text-base"
             >
               {link.name}
@@ -71,6 +74,8 @@ export const Navbar = () => {
             <a 
               key={link.name} 
               href={link.href}
+              target={link.external ? "_blank" : "_self"}
+              rel={link.external ? "noopener noreferrer" : ""}
               className="text-secondary hover:text-primary py-2 border-b border-gray-800/50"
               onClick={() => setIsMobileMenuOpen(false)}
             >
